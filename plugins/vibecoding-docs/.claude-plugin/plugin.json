@@ -1,0 +1,21 @@
+{
+  "name": "vibecoding-docs",
+  "version": "0.1.0",
+  "description": "Genera de forma interactiva los 6 documentos de planificación previos al vibecoding (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en docs/CLAUDE/ y los referencia desde el CLAUDE.md raíz. En proyectos existentes analiza CLAUDE.md, docs/, README y el código para inferir el contexto en lugar de preguntar desde cero.",
+  "author": {
+    "name": "SoftCollie"
+  },
+  "homepage": "https://github.com/SoftCollie/skills/tree/main/plugins/vibecoding-docs",
+  "license": "MIT",
+  "keywords": [
+    "docs",
+    "documentation",
+    "prd",
+    "trd",
+    "spec-driven-development",
+    "planning",
+    "vibecoding",
+    "scaffolding",
+    "spanish"
+  ]
+}

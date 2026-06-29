@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "softcollie",
+  "description": "Stack público de skills de SoftCollie / ShephERP para Claude Code.",
+  "owner": {
+    "name": "SoftCollie",
+    "email": "softcolliesolutions@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "vibecoding-docs",
+      "description": "Genera de forma interactiva los 6 documentos de planificación previos al vibecoding (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en docs/CLAUDE/ y referencia desde el CLAUDE.md raíz. Analiza proyectos existentes para inferir el contexto en vez de preguntar desde cero.",
+      "author": {
+        "name": "SoftCollie"
+      },
+      "category": "productivity",
+      "source": "./plugins/vibecoding-docs",
+      "homepage": "https://github.com/SoftCollie/skills/tree/main/plugins/vibecoding-docs"
+    }
+  ]
+}
