@@ -1,7 +1,7 @@
 {
   "name": "watch-for-me",
-  "version": "0.1.0",
-  "description": "Analiza un vídeo sin reproducirlo: a partir de una ruta local o una URL (Instagram, YouTube, TikTok…) extrae fotogramas clave (muestreo + detección de cortes), contact sheets y opcionalmente la transcripción del audio, sintetiza el contenido en SINTESIS.md y deja al agente listo para responder preguntas sobre el vídeo. Multiplataforma; gestiona sus propias dependencias (ffmpeg/yt-dlp/whisper).",
+  "version": "0.2.0",
+  "description": "Analiza un vídeo sin reproducirlo: a partir de una ruta local o una URL (Instagram, YouTube, TikTok…) extrae fotogramas clave (muestreo + detección de cortes), contact sheets y opcionalmente la transcripción del audio, sintetiza el contenido en SINTESIS.md y deja al agente listo para responder preguntas sobre el vídeo. Instagram se resuelve solo (navegador headless, sin login ni cookies). Multiplataforma; gestiona sus propias dependencias.",
   "author": {
     "name": "SoftCollie"
   },

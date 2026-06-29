@@ -27,6 +27,7 @@ import shutil
 import subprocess
 import sys
 import platform
+import urllib.request
 
 IS_WIN = platform.system() == "Windows"
 
@@ -210,6 +211,73 @@ def download_url(ytdlp, url, outdir, cookies_browser, cookies_file):
 
 
 # --------------------------------------------------------------------------- #
+#  Instagram: resolución automática vía navegador headless (sin login ni cookies)
+# --------------------------------------------------------------------------- #
+# Instagram bloquea el acceso anónimo (yt-dlp/instaloader → login required) y las
+# webs descargadoras frenan a los clientes HTTP "pelados" con captcha. Un navegador
+# headless real pasa el anti-bot SIN resolver captcha y SIN pedir nada al usuario.
+# Esta es la parte más frágil del flujo (depende del HTML del descargador): si el
+# sitio cambia, hay que actualizar los selectores de abajo.
+DOWNLOADER_PAGE = "https://sssinstagram.com/es/reels-downloader"
+
+
+def is_instagram(url):
+    return "instagram.com/" in url
+
+
+def ig_shortcode(url):
+    m = re.search(r"/(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)", url)
+    return m.group(1) if m else "instagram_video"
+
+
+def ensure_playwright(allow_install):
+    try:
+        import playwright  # noqa
+    except ImportError:
+        if not pip_install(["playwright"], allow_install):
+            return False
+    # Navegador chromium (idempotente; descarga ~120 MB la primera vez)
+    log("  🌐 Preparando navegador headless (playwright chromium)…")
+    subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"],
+                   capture_output=True)
+    return True
+
+
+def resolve_instagram(url):
+    """Devuelve el enlace directo al mp4 usando un navegador headless. Lanza en fallo."""
+    from playwright.sync_api import sync_playwright
+    ua = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+          "Chrome/120.0.0.0 Safari/537.36")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        try:
+            page = browser.new_context(user_agent=ua, locale="es-ES",
+                                       viewport={"width": 1280, "height": 900}).new_page()
+            page.goto(DOWNLOADER_PAGE, wait_until="domcontentloaded", timeout=45000)
+            for label in ("Consentir", "Consent", "Accept", "Aceptar"):
+                try:
+                    page.get_by_role("button", name=label).click(timeout=4000)
+                    break
+                except Exception:
+                    continue
+            page.get_by_placeholder("Insertar el link").fill(url)
+            page.get_by_role("button", name="Descargar").click()
+            page.wait_for_selector('a[href*="media.sssinstagram.com"]', timeout=45000)
+            return page.eval_on_selector('a[href*="media.sssinstagram.com"]', "a => a.href")
+        finally:
+            browser.close()
+
+
+def download_direct(media_url, outdir, basename):
+    os.makedirs(outdir, exist_ok=True)
+    final = os.path.join(outdir, basename + ".mp4")
+    req = urllib.request.Request(media_url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=180) as r, open(final, "wb") as f:
+        shutil.copyfileobj(r, f)
+    return final
+
+
+# --------------------------------------------------------------------------- #
 #  Extracción de fotogramas
 # --------------------------------------------------------------------------- #
 def extract_periodic(ffmpeg, video, tmpdir, interval, width):
@@ -330,9 +398,27 @@ def main():
     # Fuente: URL → descargar
     source = args.source
     if is_url(source):
-        ytdlp = ensure_ytdlp(allow)
-        source = download_url(ytdlp, source, os.path.abspath(args.outdir),
-                              args.cookies_from_browser, args.cookies)
+        outdir_abs = os.path.abspath(args.outdir)
+        if is_instagram(source) and not (args.cookies or args.cookies_from_browser):
+            # IG bloquea el acceso anónimo → resolver con navegador headless (sin login).
+            log("📸 Instagram detectado → resolviendo automáticamente (navegador headless, sin login)…")
+            if not ensure_playwright(allow):
+                log("❌ No pude preparar el navegador headless. Instala con:")
+                log("   pip install playwright && python -m playwright install chromium")
+                sys.exit(4)
+            try:
+                media = resolve_instagram(source)
+            except Exception as e:
+                log(f"❌ No pude resolver el vídeo de Instagram automáticamente ({type(e).__name__}).")
+                log("   El descargador puede haber cambiado o estar caído. Alternativa: pásale el")
+                log("   archivo .mp4 ya descargado, o usa --cookies-from-browser.")
+                sys.exit(4)
+            source = download_direct(media, outdir_abs, ig_shortcode(source))
+            log(f"✅  Descargado: {source}")
+        else:
+            ytdlp = ensure_ytdlp(allow)
+            source = download_url(ytdlp, source, outdir_abs,
+                                  args.cookies_from_browser, args.cookies)
 
     video = os.path.abspath(source)
     if not os.path.isfile(video):

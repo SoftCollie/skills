@@ -16,29 +16,31 @@ Twitter/X, etc.): si es una URL, se descarga con `yt-dlp`.
 
 El script incluido **gestiona sus dependencias**: usa el `ffmpeg` del sistema o, si no
 está, instala un binario portable vía `pip install imageio-ffmpeg` (sin permisos de
-admin); instala `yt-dlp` si la fuente es una URL; e instala `faster-whisper` sólo si se
-pide audio. Si algo no se puede instalar solo (p.ej. ffmpeg del sistema sin pip), el
+admin); instala `yt-dlp` para URLs normales; instala **Playwright + Chromium** sólo si la
+URL es de Instagram (resolución automática, ver abajo); e instala `faster-whisper` sólo si
+se pide audio. Si algo no se puede instalar solo (p.ej. ffmpeg del sistema sin pip), el
 script imprime el comando exacto para el SO del usuario — **relata ese mensaje al usuario**.
 
-## Instagram y contenido con login
+## Instagram (automático, sin login)
 
-`yt-dlp` descarga bien YouTube, TikTok, Twitter/X, etc. **Instagram suele exigir login**
-(bloquea el acceso anónimo). Tres formas de resolverlo, de más a menos cómoda:
+`yt-dlp` descarga directamente YouTube, TikTok, Twitter/X, etc. **Instagram bloquea el
+acceso anónimo**, así que para URLs de Instagram el script lo resuelve **solo**: lanza un
+**navegador headless interno** (Playwright/Chromium) que obtiene el vídeo a través de un
+descargador web — **sin login, sin cookies y sin que el usuario haga nada**. La primera vez
+descarga ~120 MB de Chromium (se instala automáticamente).
 
-1. `--cookies-from-browser firefox|chrome|brave` → usa tu sesión del navegador. En Linux,
-   Chrome necesita además `pip install secretstorage` y el keyring desbloqueado.
-2. Descarga el reel con un **downloader web** (sssinstagram, etc.) y pásale el **archivo
-   descargado** (ruta local). Es la vía más fiable.
-3. Pásale el **enlace directo del .mp4** que devuelven esos downloaders.
-
-No integres un scraper de un sitio concreto: son frágiles y cambian. La skill ya acepta
-ruta o URL, así que con cualquiera de las tres opciones funciona.
+Notas:
+- Es la parte **más frágil** del flujo (depende del HTML de un sitio descargador). Si falla
+  (sitio caído o cambiado), avisa al usuario: puede pasarte el **archivo .mp4** ya
+  descargado, o usar `--cookies-from-browser firefox|chrome`.
+- En servidores muy mínimos, Chromium headless puede necesitar librerías del sistema
+  (`python -m playwright install-deps chromium`). En un escritorio normal no hace falta.
 
 ## Flujo de trabajo
 
 1. **Identifica la fuente** en la petición del usuario: una ruta de archivo o una URL.
-   Si no está clara, pídela. Si es un reel/post de Instagram y la descarga falla por login,
-   ofrece al usuario las opciones de la sección anterior.
+   Si no está clara, pídela. Instagram se descarga solo (navegador headless); sólo si el
+   script informa de que la resolución de IG falló, ofrece las alternativas de esa sección.
 
 2. **Localiza el intérprete de Python** (`python3` en Linux/macOS, `python` en Windows) y
    el script de esta skill: `scripts/analizar_video.py` (está junto a este SKILL.md).

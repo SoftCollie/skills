@@ -40,9 +40,11 @@ Dentro de Claude Code:
 
 O simplemente pídeselo en lenguaje natural: *"mírame este vídeo: <url>"*.
 
-> **Instagram**: IG suele exigir login y bloquea la descarga anónima. Usa
-> `--cookies-from-browser firefox|chrome`, **o** descarga el reel con un downloader web y
-> pásale el **archivo** o el **enlace directo del .mp4**. La skill acepta ruta o URL.
+> **Instagram**: funciona **automáticamente, sin login ni cookies ni acción tuya**. IG
+> bloquea el acceso anónimo, así que para URLs de Instagram la skill lanza un **navegador
+> headless interno** (Playwright/Chromium) que resuelve el vídeo por ti. La primera vez
+> descarga ~120 MB de Chromium. Es la parte más frágil (depende de un sitio descargador);
+> si algún día falla, pásale el `.mp4` ya descargado.
 
 ## Dependencias (automáticas, multiplataforma)
 
@@ -51,7 +53,8 @@ La skill **gestiona sus dependencias**:
 | Dependencia | Para qué | Cómo se resuelve |
 |-------------|----------|------------------|
 | `ffmpeg` | extraer fotogramas y contact sheets | usa el del sistema; si falta, instala `imageio-ffmpeg` (binario portable vía pip, sin admin) |
-| `yt-dlp` | descargar URLs | se instala vía pip si la fuente es una URL |
+| `yt-dlp` | descargar URLs (YouTube/TikTok/X…) | se instala vía pip si la fuente es una URL |
+| `playwright` + Chromium | resolver **Instagram** sin login | se instala solo (pip + `playwright install chromium`, ~120 MB) la 1ª vez que pasas una URL de IG |
 | `faster-whisper` | transcribir audio (opcional) | se instala vía pip sólo al pedir `--audio` |
 
 Lo que no pueda instalar solo (p.ej. `ffmpeg` del sistema en un entorno sin pip), lo
