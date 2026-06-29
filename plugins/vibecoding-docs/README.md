@@ -20,6 +20,17 @@ Los 6 documentos:
 /plugin install vibecoding-docs@softcollie
 ```
 
+### Alternativa vía npm
+
+Si prefieres instalarla sin el marketplace, este paquete copia la skill a `~/.claude/skills/`:
+
+```bash
+npx @softcollie/vibecoding-docs-skill
+```
+
+> El canal recomendado en Claude Code es el marketplace (`/plugin`); npm es una alternativa para
+> quien quiera instalarla con `npx`.
+
 ## Uso
 
 En cualquier proyecto, escribe `/vibecoding-docs` o pídelo en lenguaje natural
