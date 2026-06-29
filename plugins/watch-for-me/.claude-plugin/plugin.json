@@ -1,0 +1,24 @@
+{
+  "name": "watch-for-me",
+  "version": "0.1.0",
+  "description": "Analiza un vídeo sin reproducirlo: a partir de una ruta local o una URL (Instagram, YouTube, TikTok…) extrae fotogramas clave (muestreo + detección de cortes), contact sheets y opcionalmente la transcripción del audio, sintetiza el contenido en SINTESIS.md y deja al agente listo para responder preguntas sobre el vídeo. Multiplataforma; gestiona sus propias dependencias (ffmpeg/yt-dlp/whisper).",
+  "author": {
+    "name": "SoftCollie"
+  },
+  "homepage": "https://github.com/SoftCollie/skills/tree/main/plugins/watch-for-me",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "video-analysis",
+    "frames",
+    "scene-detection",
+    "transcription",
+    "whisper",
+    "yt-dlp",
+    "instagram",
+    "youtube",
+    "tiktok",
+    "ffmpeg",
+    "spanish"
+  ]
+}

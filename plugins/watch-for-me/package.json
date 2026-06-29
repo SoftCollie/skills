@@ -1,0 +1,39 @@
+{
+  "name": "@softcollie/watch-for-me-skill",
+  "version": "0.1.0",
+  "description": "Skill de Claude Code que analiza un vídeo sin reproducirlo: desde una ruta o URL (Instagram/YouTube/TikTok) extrae fotogramas clave, contact sheets y opcional transcripción, y sintetiza el contenido para poder preguntar sobre el vídeo. Multiplataforma; gestiona sus dependencias.",
+  "type": "module",
+  "bin": {
+    "watch-for-me-skill": "bin/install.mjs"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "README.md"
+  ],
+  "keywords": [
+    "claude-code",
+    "claude-code-skill",
+    "agent-skill",
+    "video",
+    "video-analysis",
+    "scene-detection",
+    "transcription",
+    "yt-dlp",
+    "ffmpeg"
+  ],
+  "author": "SoftCollie",
+  "license": "MIT",
+  "homepage": "https://github.com/SoftCollie/skills/tree/main/plugins/watch-for-me",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoftCollie/skills.git",
+    "directory": "plugins/watch-for-me"
+  },
+  "bugs": {
+    "url": "https://github.com/SoftCollie/skills/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -16,6 +16,16 @@
       "category": "productivity",
       "source": "./plugins/vibecoding-docs",
       "homepage": "https://github.com/SoftCollie/skills/tree/main/plugins/vibecoding-docs"
+    },
+    {
+      "name": "watch-for-me",
+      "description": "Mira un vídeo por ti sin reproducirlo: desde una ruta local o una URL (Instagram, YouTube, TikTok…) extrae fotogramas clave (muestreo + detección de cortes), contact sheets y opcionalmente la transcripción del audio, sintetiza el contenido y deja al agente listo para responder preguntas sobre el vídeo. Multiplataforma; gestiona sus propias dependencias.",
+      "author": {
+        "name": "SoftCollie"
+      },
+      "category": "productivity",
+      "source": "./plugins/watch-for-me",
+      "homepage": "https://github.com/SoftCollie/skills/tree/main/plugins/watch-for-me"
     }
   ]
 }

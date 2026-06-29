@@ -17,6 +17,7 @@ Instálalas como plugins y mantenlas actualizadas con los comandos `/plugin`.
 | Skill | Qué hace |
 |-------|----------|
 | [`vibecoding-docs`](plugins/vibecoding-docs) | Genera los 6 documentos de planificación previos al *vibecoding* (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en `docs/CLAUDE/` y los referencia desde el `CLAUDE.md` raíz. En proyectos existentes analiza el contexto en vez de preguntar desde cero. |
+| [`watch-for-me`](plugins/watch-for-me) | Mira un vídeo por ti sin reproducirlo: desde una ruta o una URL (Instagram, YouTube, TikTok…) extrae los fotogramas clave, contact sheets y opcional transcripción, sintetiza el contenido y deja al agente listo para responder preguntas sobre el vídeo. Multiplataforma; gestiona sus dependencias. |
 
 ## Actualizar
 
