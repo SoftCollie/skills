@@ -27,7 +27,6 @@ import shutil
 import subprocess
 import sys
 import platform
-import urllib.request
 
 IS_WIN = platform.system() == "Windows"
 
@@ -219,6 +218,8 @@ def download_url(ytdlp, url, outdir, cookies_browser, cookies_file):
 # Esta es la parte más frágil del flujo (depende del HTML del descargador): si el
 # sitio cambia, hay que actualizar los selectores de abajo.
 DOWNLOADER_PAGE = "https://sssinstagram.com/es/reels-downloader"
+# Por debajo de esto se considera que la descarga es un stub vacío y no un vídeo.
+MIN_VIDEO_BYTES = 50 * 1024
 
 
 def is_instagram(url):
@@ -243,38 +244,53 @@ def ensure_playwright(allow_install):
     return True
 
 
-def resolve_instagram(url):
-    """Devuelve el enlace directo al mp4 usando un navegador headless. Lanza en fallo."""
+def fetch_instagram(url, outdir, basename):
+    """Descarga el vídeo de IG con un navegador headless (sin login ni cookies del
+    usuario) y lo guarda en disco. Resuelve el enlace en el descargador y lo baja
+    usando la SESIÓN del navegador (Referer + cookies): el enlace va firmado y un
+    cliente HTTP "pelado" recibe un fichero vacío/truncado. Devuelve la ruta del
+    .mp4 o lanza una excepción si no lo consigue."""
     from playwright.sync_api import sync_playwright
+    os.makedirs(outdir, exist_ok=True)
+    final = os.path.join(outdir, basename + ".mp4")
     ua = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
           "Chrome/120.0.0.0 Safari/537.36")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         try:
-            page = browser.new_context(user_agent=ua, locale="es-ES",
-                                       viewport={"width": 1280, "height": 900}).new_page()
+            ctx = browser.new_context(user_agent=ua, locale="es-ES",
+                                      accept_downloads=True,
+                                      viewport={"width": 1280, "height": 900})
+            page = ctx.new_page()
             page.goto(DOWNLOADER_PAGE, wait_until="domcontentloaded", timeout=45000)
-            for label in ("Consentir", "Consent", "Accept", "Aceptar"):
+            for label in ("Consentir", "Consent", "Accept", "Aceptar", "Aceptar todo"):
                 try:
-                    page.get_by_role("button", name=label).click(timeout=4000)
+                    page.get_by_role("button", name=label).click(timeout=3000)
                     break
                 except Exception:
                     continue
             page.get_by_placeholder("Insertar el link").fill(url)
             page.get_by_role("button", name="Descargar").click()
-            page.wait_for_selector('a[href*="media.sssinstagram.com"]', timeout=45000)
-            return page.eval_on_selector('a[href*="media.sssinstagram.com"]', "a => a.href")
+            # El descargador publica un <a download href="https://media.sssinstagram.com/get?…">.
+            try:
+                btn = page.wait_for_selector('a[download][href*="media.sssinstagram.com"]',
+                                             timeout=60000)
+            except Exception:
+                btn = page.wait_for_selector('a[href*="media.sssinstagram.com"]', timeout=15000)
+            href = btn.get_attribute("href")
+            if not href:
+                raise RuntimeError("no se obtuvo el enlace de descarga del vídeo")
+            # Bajar con la sesión del navegador (no con urllib: el enlace firmado
+            # exige Referer y devuelve un stub si se pide "pelado").
+            resp = ctx.request.get(href, headers={"referer": DOWNLOADER_PAGE},
+                                   timeout=180000)
+            if resp.status != 200:
+                raise RuntimeError(f"el descargador respondió HTTP {resp.status}")
+            with open(final, "wb") as f:
+                f.write(resp.body())
+            return final
         finally:
             browser.close()
-
-
-def download_direct(media_url, outdir, basename):
-    os.makedirs(outdir, exist_ok=True)
-    final = os.path.join(outdir, basename + ".mp4")
-    req = urllib.request.Request(media_url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=180) as r, open(final, "wb") as f:
-        shutil.copyfileobj(r, f)
-    return final
 
 
 # --------------------------------------------------------------------------- #
@@ -407,13 +423,24 @@ def main():
                 log("   pip install playwright && python -m playwright install chromium")
                 sys.exit(4)
             try:
-                media = resolve_instagram(source)
+                source = fetch_instagram(source, outdir_abs, ig_shortcode(source))
             except Exception as e:
-                log(f"❌ No pude resolver el vídeo de Instagram automáticamente ({type(e).__name__}).")
-                log("   El descargador puede haber cambiado o estar caído. Alternativa: pásale el")
-                log("   archivo .mp4 ya descargado, o usa --cookies-from-browser.")
+                log(f"❌ No pude descargar el vídeo de Instagram automáticamente ({type(e).__name__}: {e}).")
+                log("   El descargador puede haber cambiado o estar caído. Alternativas: pásale el")
+                log("   archivo .mp4 ya descargado, o usa --cookies-from-browser firefox|chrome.")
                 sys.exit(4)
-            source = download_direct(media, outdir_abs, ig_shortcode(source))
+            # El descargador a veces devuelve un stub vacío en vez del vídeo: validar
+            # tamaño y duración antes de seguir, en lugar de producir 0 fotogramas.
+            size = os.path.getsize(source) if os.path.isfile(source) else 0
+            if size < MIN_VIDEO_BYTES or probe_duration(ffmpeg, ffprobe, source) <= 0:
+                log(f"❌ La descarga de Instagram no es un vídeo válido ({size} bytes, duración 0).")
+                log("   El descargador puede haber cambiado. Alternativas: pásale el .mp4 ya")
+                log("   descargado, o usa --cookies-from-browser firefox|chrome.")
+                try:
+                    os.remove(source)
+                except OSError:
+                    pass
+                sys.exit(4)
             log(f"✅  Descargado: {source}")
         else:
             ytdlp = ensure_ytdlp(allow)
