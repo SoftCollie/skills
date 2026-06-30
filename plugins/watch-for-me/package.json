@@ -1,6 +1,6 @@
 {
   "name": "@softcollie/watch-for-me-skill",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Skill de Claude Code que analiza un vídeo sin reproducirlo: desde una ruta o URL (Instagram/YouTube/TikTok) extrae fotogramas clave, contact sheets y opcional transcripción, y sintetiza el contenido para poder preguntar sobre el vídeo. Multiplataforma; gestiona sus dependencias.",
   "type": "module",
   "bin": {

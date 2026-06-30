@@ -1,0 +1,5 @@
+# npm pack corre en este directorio; sin esto, los artefactos de Python (creados
+# al ejecutar/compilar el script) se colarían en el tarball publicado.
+__pycache__/
+*.pyc
+*.pyo
