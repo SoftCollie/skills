@@ -47,11 +47,24 @@ def pip_install(pkgs, allow_install):
         return False
     log(f"  📦 Instalando dependencias: {', '.join(pkgs)} (pip)…")
     base = [sys.executable, "-m", "pip", "install", "-q", "--upgrade"]
-    # 1º intento normal; 2º intento con --user (entornos sin venv)
-    for extra in ([], ["--user"]):
-        r = subprocess.run(base + extra + list(pkgs))
-        if r.returncode == 0:
+    # Escalado para cubrir venvs, instalaciones de usuario y los Python
+    # "externally-managed" (PEP 668; p.ej. Ubuntu 24.04 / Debian 12), donde
+    # `pip install` y `--user` fallan sin `--break-system-packages` (instala en
+    # ~/.local, sin sudo). En entornos antiguos el primer intento ya funciona,
+    # así que el flag nuevo no llega a usarse ahí.
+    attempts = ([], ["--user"],
+                ["--user", "--break-system-packages"],
+                ["--break-system-packages"])
+    last = None
+    for extra in attempts:
+        last = subprocess.run(base + extra + list(pkgs),
+                              capture_output=True, text=True)
+        if last.returncode == 0:
             return True
+    # Si todo falla, mostrar las últimas líneas del error de pip para diagnóstico.
+    if last is not None and last.stderr:
+        for line in last.stderr.strip().splitlines()[-3:]:
+            log("     " + line)
     return False
 
 
