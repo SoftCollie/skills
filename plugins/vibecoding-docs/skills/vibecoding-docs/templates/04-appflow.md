@@ -1,53 +1,53 @@
-# AppFlow — Flujo de la aplicación: {{PROYECTO}}
+# AppFlow — Application flow: {{PROJECT}}
 
-> Última actualización: {{FECHA}}
-> Documento generado con la skill `vibecoding-docs`. Se apoya en `01-prd.md` y `03-ui-ux.md`.
+> Last updated: {{DATE}}
+> Document generated with the `vibecoding-docs` skill. Builds on `01-prd.md` and `03-ui-ux.md`.
 
-## Preguntas a realizar (no copiar a la salida)
+## Questions to ask (do not copy into the output)
 <!--
-1. ¿Cuáles son las pantallas/vistas principales?
-2. Flujo de entrada: ¿splash, registro, login? ¿Qué métodos (email, Google, Apple…)?
-3. ¿Hay onboarding? ¿Qué pasos?
-4. ¿Cuál es el "happy path" (recorrido principal) del usuario una vez dentro?
-5. Estados especiales: vacío, error, sin conexión, permisos.
+1. What are the main screens/views?
+2. Entry flow: splash, sign-up, login? Which methods (email, Google, Apple…)?
+3. Is there an onboarding? Which steps?
+4. What is the user's "happy path" once inside?
+5. Special states: empty, error, offline, permissions.
 -->
 
-## 1. Mapa de pantallas
-Lista de pantallas con su propósito.
+## 1. Screen map
+List of screens and their purpose.
 
-| Pantalla | Propósito | Acciones principales |
-|----------|-----------|----------------------|
+| Screen | Purpose | Main actions |
+|--------|---------|--------------|
 | Splash | | |
-| Registro / Login | | |
+| Sign-up / Login | | |
 | Onboarding | | |
 | Home / Dashboard | | |
 | … | | |
 
-## 2. Diagrama de flujo
+## 2. Flow diagram
 ```mermaid
 flowchart LR
-  Start([Inicio]) --> Splash[Splash]
-  Splash --> Auth{¿Registrado?}
-  Auth -- No --> SignUp[Registro]
-  SignUp --> Verify[Verificar email]
+  Start([Start]) --> Splash[Splash]
+  Splash --> Auth{Registered?}
+  Auth -- No --> SignUp[Sign-up]
+  SignUp --> Verify[Verify email]
   Verify --> Onboarding[Onboarding]
-  Auth -- Sí --> Home[Home]
+  Auth -- Yes --> Home[Home]
   Onboarding --> Home
 ```
-> Ajusta el diagrama al flujo real del proyecto.
+> Adapt the diagram to the project's real flow.
 
-## 3. Recorrido principal (happy path)
-Paso a paso de la acción clave que aporta valor (p. ej. crear una tarea, publicar, comprar).
+## 3. Happy path
+Step by step of the key value-delivering action (e.g. create a task, publish, buy).
 
 1. …
 2. …
 3. …
 
-## 4. Navegación
-Estructura de navegación (tab bar / drawer / stack) y cómo se mueve el usuario entre secciones.
+## 4. Navigation
+Navigation structure (tab bar / drawer / stack) and how the user moves between sections.
 
-## 5. Estados y casos límite
-- Estado vacío:
-- Errores y validaciones:
-- Sin conexión / carga:
-- Permisos (cámara, notificaciones, ubicación):
+## 5. States and edge cases
+- Empty state:
+- Errors and validation:
+- Offline / loading:
+- Permissions (camera, notifications, location):

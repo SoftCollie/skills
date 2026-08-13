@@ -1,7 +1,7 @@
 {
   "name": "vibecoding-docs",
-  "version": "0.1.0",
-  "description": "Genera de forma interactiva los 6 documentos de planificación previos al vibecoding (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en docs/CLAUDE/ y los referencia desde el CLAUDE.md raíz. En proyectos existentes analiza CLAUDE.md, docs/, README y el código para inferir el contexto en lugar de preguntar desde cero.",
+  "version": "0.2.0",
+  "description": "Interactively generate the 6 planning documents you want before vibecoding an app (PRD, TRD, UI/UX, AppFlow, backend schema and implementation plan) into docs/CLAUDE/, and reference them from the root CLAUDE.md. In existing projects it reads CLAUDE.md, docs/, the README and the code to infer the context instead of asking from scratch.",
   "author": {
     "name": "SoftCollie"
   },
@@ -12,10 +12,11 @@
     "documentation",
     "prd",
     "trd",
+    "design-system",
     "spec-driven-development",
     "planning",
     "vibecoding",
     "scaffolding",
-    "spanish"
+    "requirements"
   ]
 }

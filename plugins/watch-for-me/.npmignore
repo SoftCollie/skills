@@ -1,5 +1,5 @@
-# npm pack corre en este directorio; sin esto, los artefactos de Python (creados
-# al ejecutar/compilar el script) se colarían en el tarball publicado.
+# npm pack runs in this directory; without this, the Python artifacts (created when
+# running/compiling the script) would sneak into the published tarball.
 __pycache__/
 *.pyc
 *.pyo

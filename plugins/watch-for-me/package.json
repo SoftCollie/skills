@@ -1,7 +1,7 @@
 {
   "name": "@softcollie/watch-for-me-skill",
-  "version": "0.2.3",
-  "description": "Skill de Claude Code que analiza un vídeo sin reproducirlo: desde una ruta o URL (Instagram/YouTube/TikTok) extrae fotogramas clave, contact sheets y opcional transcripción, y sintetiza el contenido para poder preguntar sobre el vídeo. Multiplataforma; gestiona sus dependencias.",
+  "version": "0.2.4",
+  "description": "Claude Code skill that watches a video for you without playing it: from a local path or a URL (Instagram/YouTube/TikTok) it extracts key frames, contact sheets and an optional audio transcript, then summarizes the content so you can ask questions about the video. Cross-platform; manages its own dependencies.",
   "type": "module",
   "bin": {
     "watch-for-me-skill": "bin/install.mjs"
@@ -12,13 +12,25 @@
     "README.md"
   ],
   "keywords": [
+    "claude",
     "claude-code",
     "claude-code-skill",
+    "claude-code-plugin",
     "agent-skill",
+    "ai-agent",
     "video",
     "video-analysis",
+    "video-summary",
+    "video-summarizer",
+    "keyframes",
+    "contact-sheet",
     "scene-detection",
     "transcription",
+    "whisper",
+    "instagram",
+    "youtube",
+    "tiktok",
+    "reels",
     "yt-dlp",
     "ffmpeg"
   ],

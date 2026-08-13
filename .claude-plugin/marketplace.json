@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "softcollie",
-  "description": "Stack público de skills de SoftCollie / ShephERP para Claude Code.",
+  "description": "The public skill stack of SoftCollie / ShephERP for Claude Code.",
   "owner": {
     "name": "SoftCollie",
     "email": "softcolliesolutions@gmail.com"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "vibecoding-docs",
-      "description": "Genera de forma interactiva los 6 documentos de planificación previos al vibecoding (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en docs/CLAUDE/ y referencia desde el CLAUDE.md raíz. Analiza proyectos existentes para inferir el contexto en vez de preguntar desde cero.",
+      "description": "Interactively generates the 6 planning documents you want before vibecoding (PRD, TRD, UI/UX, AppFlow, backend schema and implementation plan) into docs/CLAUDE/, and references them from the root CLAUDE.md. Analyzes existing projects to infer the context instead of asking from scratch.",
       "author": {
         "name": "SoftCollie"
       },
@@ -19,7 +19,7 @@
     },
     {
       "name": "watch-for-me",
-      "description": "Mira un vídeo por ti sin reproducirlo: desde una ruta local o una URL (Instagram, YouTube, TikTok…) extrae fotogramas clave (muestreo + detección de cortes), contact sheets y opcionalmente la transcripción del audio, sintetiza el contenido y deja al agente listo para responder preguntas sobre el vídeo. Multiplataforma; gestiona sus propias dependencias.",
+      "description": "Watches a video for you without playing it: from a local path or a URL (Instagram, YouTube, TikTok…) it extracts key frames (interval sampling + scene-cut detection), contact sheets and an optional audio transcript, summarizes the content and leaves the agent ready to answer questions about the video. Cross-platform; manages its own dependencies.",
       "author": {
         "name": "SoftCollie"
       },

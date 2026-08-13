@@ -1,7 +1,7 @@
 {
   "name": "@softcollie/vibecoding-docs-skill",
-  "version": "0.1.0",
-  "description": "Skill de Claude Code que genera los 6 documentos de planificación previos al vibecoding (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en docs/CLAUDE/.",
+  "version": "0.2.0",
+  "description": "Claude Code skill that generates the 6 planning documents you want before vibecoding an app (PRD, TRD, UI/UX, AppFlow, backend schema and implementation plan) into docs/CLAUDE/.",
   "type": "module",
   "bin": {
     "vibecoding-docs-skill": "bin/install.mjs"
@@ -12,13 +12,20 @@
     "README.md"
   ],
   "keywords": [
+    "claude",
     "claude-code",
     "claude-code-skill",
+    "claude-code-plugin",
     "agent-skill",
+    "ai-agent",
     "docs",
+    "documentation",
     "prd",
     "trd",
+    "requirements",
+    "design-system",
     "spec-driven-development",
+    "planning",
     "vibecoding"
   ],
   "author": "SoftCollie",

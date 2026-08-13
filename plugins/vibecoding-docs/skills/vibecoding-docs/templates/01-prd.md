@@ -1,50 +1,50 @@
-# PRD — Documento de Requisitos de Producto: {{PROYECTO}}
+# PRD — Product Requirements Document: {{PROJECT}}
 
-> Última actualización: {{FECHA}}
-> Documento generado con la skill `vibecoding-docs`.
+> Last updated: {{DATE}}
+> Document generated with the `vibecoding-docs` skill.
 
-## Preguntas a realizar (no copiar a la salida)
+## Questions to ask (do not copy into the output)
 <!--
-1. ¿Qué problema resuelve la app y cuál es su propuesta de valor en una frase?
-2. ¿Quiénes son los usuarios objetivo? (perfiles / personas, 1-3)
-3. ¿Cuáles son las funcionalidades imprescindibles (must-have)? ¿Y las deseables (nice-to-have)?
-4. ¿Cómo se mide el éxito? (métricas: activación, retención, ingresos, etc.)
-5. ¿Qué queda explícitamente FUERA de alcance en la primera versión?
+1. What problem does the app solve, and what is its value proposition in one sentence?
+2. Who are the target users? (profiles / personas, 1-3)
+3. Which features are must-have? And which are nice-to-have?
+4. How is success measured? (metrics: activation, retention, revenue, etc.)
+5. What is explicitly OUT of scope for the first version?
 -->
 
-## 1. Visión general (Overview)
-Resumen del producto en 3-5 líneas: qué es, qué problema resuelve y por qué importa.
+## 1. Overview
+The product in 3-5 lines: what it is, what problem it solves and why it matters.
 
-## 2. Objetivos y metas (Goals & Objectives)
-- Objetivo principal:
-- Objetivos secundarios:
-- No-objetivos (qué NO pretende ser):
+## 2. Goals & Objectives
+- Primary goal:
+- Secondary goals:
+- Non-goals (what it does NOT try to be):
 
-## 3. Usuarios y personas
-| Perfil | Necesidad / dolor | Cómo le ayuda la app |
-|--------|-------------------|----------------------|
+## 3. Users and personas
+| Profile | Need / pain | How the app helps |
+|---------|-------------|-------------------|
 | | | |
 
-## 4. Requisitos funcionales (Requirements)
-Lista priorizada. Marca prioridad: **P0** (imprescindible) · **P1** (importante) · **P2** (deseable).
+## 4. Functional requirements
+Prioritized list. Mark the priority: **P0** (must-have) · **P1** (important) · **P2** (nice-to-have).
 
 - [ ] **P0** — …
 - [ ] **P1** — …
 - [ ] **P2** — …
 
-## 5. Experiencia de usuario (User Experience)
-Recorrido de alto nivel: cómo descubre, se registra y usa el producto el usuario. (El detalle de
-pantallas va en `04-appflow.md`.)
+## 5. User experience
+High-level journey: how the user discovers, signs up for and uses the product. (Screen-level
+detail belongs in `04-appflow.md`.)
 
-## 6. Métricas de éxito (Success Metrics)
-| Métrica | Definición | Objetivo |
-|---------|------------|----------|
+## 6. Success metrics
+| Metric | Definition | Target |
+|--------|------------|--------|
 | | | |
 
-## 7. Fuera de alcance (Out of scope)
-Qué se deja deliberadamente para más adelante.
+## 7. Out of scope
+What is deliberately left for later.
 
-## 8. Supuestos, riesgos y dependencias
-- Supuestos:
-- Riesgos:
-- Dependencias externas:
+## 8. Assumptions, risks and dependencies
+- Assumptions:
+- Risks:
+- External dependencies:

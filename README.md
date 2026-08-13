@@ -1,40 +1,42 @@
-# SoftCollie Skills · marketplace para Claude Code
+# SoftCollie Skills · a marketplace for Claude Code
 
-Stack público de skills de **SoftCollie / ShephERP** para [Claude Code](https://claude.com/claude-code).
-Instálalas como plugins y mantenlas actualizadas con los comandos `/plugin`.
+The public skill stack of **SoftCollie / ShephERP** for [Claude Code](https://claude.com/claude-code).
+Install them as plugins and keep them updated with the `/plugin` commands.
 
-## Instalación
+## Install
 
 ```text
 /plugin marketplace add SoftCollie/skills
 /plugin install vibecoding-docs@softcollie
 ```
 
-> El primer comando registra este marketplace (una sola vez). El segundo instala una skill concreta.
+> The first command registers this marketplace (once). The second installs a specific skill.
 
-## Skills disponibles
+## Available skills
 
-| Skill | Qué hace |
-|-------|----------|
-| [`vibecoding-docs`](plugins/vibecoding-docs) | Genera los 6 documentos de planificación previos al *vibecoding* (PRD, TRD, UI/UX, AppFlow, esquema del backend y plan de implementación) en `docs/CLAUDE/` y los referencia desde el `CLAUDE.md` raíz. En proyectos existentes analiza el contexto en vez de preguntar desde cero. |
-| [`watch-for-me`](plugins/watch-for-me) | Mira un vídeo por ti sin reproducirlo: desde una ruta o una URL (Instagram, YouTube, TikTok…) extrae los fotogramas clave, contact sheets y opcional transcripción, sintetiza el contenido y deja al agente listo para responder preguntas sobre el vídeo. Multiplataforma; gestiona sus dependencias. |
+| Skill | What it does |
+|-------|--------------|
+| [`vibecoding-docs`](plugins/vibecoding-docs) | Generates the 6 planning documents you want before *vibecoding* (PRD, TRD, UI/UX, AppFlow, backend schema and implementation plan) into `docs/CLAUDE/`, and references them from the root `CLAUDE.md`. In existing projects it reads the context instead of asking from scratch. |
+| [`watch-for-me`](plugins/watch-for-me) | Watches a video for you without playing it: from a local path or a URL (Instagram, YouTube, TikTok…) it extracts the key frames, contact sheets and an optional transcript, summarizes the content and leaves the agent ready to answer questions about the video. Cross-platform; manages its own dependencies. |
 
-## Actualizar
+## Update
 
-Cuando se publique una versión nueva:
+When a new version ships:
 
 ```text
 /plugin marketplace update softcollie
 /plugin update vibecoding-docs
 ```
 
-## Para mantenedores
+## For maintainers
 
-- Cada skill es un **plugin** bajo `plugins/<nombre>/` con su `.claude-plugin/plugin.json`.
-- El catálogo se declara en [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json).
-- Versionado **semver** en el campo `version` de cada `plugin.json`. Sube la versión al publicar cambios.
-- Publicar una actualización = editar la skill, subir `version`, `git commit` y `git push` a `main`.
+- Each skill is a **plugin** under `plugins/<name>/` with its own `.claude-plugin/plugin.json`.
+- The catalog is declared in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json).
+- **Semver** versioning in each `plugin.json`'s `version` field. Bump it when publishing changes.
+- Publishing an update = edit the skill, bump `version`, `git commit` and `git push` to `main`.
+- Everything user-facing (skill descriptions, READMEs, generated docs) is written in **English**
+  so the skills are discoverable; the skills themselves answer in the user's language.
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Instalador de la skill «vibecoding-docs» para Claude Code.
-// Copia el contenido de la skill a ~/.claude/skills/vibecoding-docs.
+// Installer for the "vibecoding-docs" Claude Code skill.
+// Copies the skill's contents into ~/.claude/skills/vibecoding-docs.
 import { cpSync, existsSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -12,12 +12,12 @@ const destRoot = join(homedir(), '.claude', 'skills');
 const dest = join(destRoot, 'vibecoding-docs');
 
 if (!existsSync(src)) {
-  console.error('✗ No se encontró el contenido de la skill en:', src);
+  console.error('✗ Could not find the skill contents at:', src);
   process.exit(1);
 }
 
 mkdirSync(destRoot, { recursive: true });
 cpSync(src, dest, { recursive: true });
 
-console.log('✓ Skill «vibecoding-docs» instalada en:', dest);
-console.log('  Reinicia Claude Code y úsala escribiendo: /vibecoding-docs');
+console.log('✓ Skill "vibecoding-docs" installed at:', dest);
+console.log('  Restart Claude Code and use it with: /vibecoding-docs');

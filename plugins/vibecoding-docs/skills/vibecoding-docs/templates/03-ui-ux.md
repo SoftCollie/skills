@@ -1,52 +1,52 @@
-# Diseño UI/UX — Sistema de diseño: {{PROYECTO}}
+# UI/UX Design — Design system: {{PROJECT}}
 
-> Última actualización: {{FECHA}}
-> Documento generado con la skill `vibecoding-docs`.
+> Last updated: {{DATE}}
+> Document generated with the `vibecoding-docs` skill.
 
-## Preguntas a realizar (no copiar a la salida)
+## Questions to ask (do not copy into the output)
 <!--
-1. Tono/estilo visual: minimalista, corporativo, lúdico, elegante, técnico…
-2. ¿Tiene marca/colores ya definidos? Si no, ¿propongo paleta?
-3. Tipografía preferida (o que la proponga la skill).
-4. ¿Modo claro, oscuro o ambos?
-5. Referencias o apps que le gustan como inspiración.
-6. Plataforma (de PRD): condiciona componentes (móvil vs web).
+1. Visual tone/style: minimal, corporate, playful, elegant, technical…
+2. Are there brand colors already defined? If not, should I propose a palette?
+3. Preferred typography (or let the skill propose one).
+4. Light mode, dark mode or both?
+5. References or apps they like as inspiration.
+6. Platform (from the PRD): it drives the components (mobile vs web).
 -->
 
-## 1. Principios de diseño
-3-5 principios que guían las decisiones (p. ej. claridad, consistencia, accesibilidad).
+## 1. Design principles
+3-5 principles guiding the decisions (e.g. clarity, consistency, accessibility).
 
-## 2. Paleta de colores
-| Rol | Color (HEX) | Uso |
-|-----|-------------|-----|
-| Primario | | |
-| Secundario | | |
-| Acento | | |
-| Éxito / Aviso / Error | | |
-| Neutros (texto, fondo, borde) | | |
+## 2. Color palette
+| Role | Color (HEX) | Usage |
+|------|-------------|-------|
+| Primary | | |
+| Secondary | | |
+| Accent | | |
+| Success / Warning / Error | | |
+| Neutrals (text, background, border) | | |
 
-¿Modo claro / oscuro? Indica variantes si aplica.
+Light / dark mode? List the variants if applicable.
 
-## 3. Tipografía
-- **Display / títulos:** familia, pesos.
-- **Cuerpo:** familia, pesos.
-- **Escala tipográfica:** H1, H2, H3, body, caption (tamaños y line-height).
+## 3. Typography
+- **Display / headings:** family, weights.
+- **Body:** family, weights.
+- **Type scale:** H1, H2, H3, body, caption (sizes and line-height).
 
-## 4. Espaciado y layout
-Sistema de espaciado (p. ej. base 4/8 px), rejilla y breakpoints.
+## 4. Spacing and layout
+Spacing system (e.g. 4/8 px base), grid and breakpoints.
 
-## 5. Componentes
-Inventario de componentes con sus estados (default, hover, activo, deshabilitado, error):
-- Botones (primario, secundario, texto)
-- Campos de formulario / inputs
-- Tarjetas (cards)
-- Chips / etiquetas
+## 5. Components
+Component inventory with their states (default, hover, active, disabled, error):
+- Buttons (primary, secondary, text)
+- Form fields / inputs
+- Cards
+- Chips / tags
 - Toggles, sliders, ratings
-- Modales, bottom sheets, diálogos
-- Navegación (tab bar, menú, breadcrumbs)
+- Modals, bottom sheets, dialogs
+- Navigation (tab bar, menu, breadcrumbs)
 
-## 6. Iconografía e imágenes
-Set de iconos (p. ej. Lucide/Heroicons), estilo de ilustración/foto.
+## 6. Iconography and imagery
+Icon set (e.g. Lucide/Heroicons), illustration/photo style.
 
-## 7. Accesibilidad
-Contraste mínimo, tamaños táctiles, foco visible, textos alternativos.
+## 7. Accessibility
+Minimum contrast, touch target sizes, visible focus, alt text.

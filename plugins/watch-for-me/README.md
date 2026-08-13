@@ -1,76 +1,79 @@
-# watch-for-me · skill de Claude Code
+# watch-for-me · a Claude Code skill
 
-Que Claude **mire el vídeo por ti**, **sin reproducirlo**. A partir de una **ruta local** o una **URL**
-(Instagram, YouTube, TikTok, Twitter/X…) extrae los fotogramas clave (muestreo periódico
-+ detección de cortes de escena), genera *contact sheets* y, opcionalmente, transcribe el
-audio. Después Claude **lee los fotogramas** y la transcripción, escribe una `SINTESIS.md`
-y queda disponible para responder preguntas sobre el vídeo (reabriendo fotogramas
-concretos para ser preciso).
+Let Claude **watch the video for you**, **without playing it**. From a **local path** or a
+**URL** (Instagram, YouTube, TikTok, X/Twitter…) it extracts the key frames (interval
+sampling + scene-cut detection), builds *contact sheets* and, optionally, transcribes the
+audio. Claude then **reads the frames** and the transcript, writes a `SUMMARY.md` and stays
+available to answer questions about the video (reopening specific frames to be accurate).
 
-Funciona porque la herramienta de lectura de archivos de Claude Code **renderiza
-imágenes**: no hace falta un modelo de visión aparte ni claves de API.
+It works because Claude Code's file-reading tool **renders images**: no separate vision
+model and no API keys required.
 
-## Instalación
+## Install
 
-### Como plugin del marketplace (recomendado)
+### As a marketplace plugin (recommended)
 
 ```text
 /plugin marketplace add SoftCollie/skills
 /plugin install watch-for-me@softcollie
 ```
 
-### Como paquete npm
+### As an npm package
 
 ```bash
 npx @softcollie/watch-for-me-skill
 ```
 
-Copia la skill en `~/.claude/skills/watch-for-me`. Reinicia Claude Code y úsala con
-`/watch-for-me`.
+This copies the skill into `~/.claude/skills/watch-for-me`. Restart Claude Code and use it
+with `/watch-for-me`.
 
-## Uso
+## Usage
 
-Dentro de Claude Code:
+Inside Claude Code:
 
 ```text
 /watch-for-me https://www.instagram.com/reel/XXXX/
-/watch-for-me /ruta/a/charla.mp4
-/watch-for-me https://youtu.be/XXXX  (y pídele que transcriba el audio)
+/watch-for-me /path/to/talk.mp4
+/watch-for-me https://youtu.be/XXXX  (and ask it to transcribe the audio)
 ```
 
-O simplemente pídeselo en lenguaje natural: *"mírame este vídeo: <url>"*.
+Or just ask in plain language: *"watch this video for me: <url>"*.
 
-> **Instagram**: funciona **automáticamente, sin login ni cookies ni acción tuya**. IG
-> bloquea el acceso anónimo, así que para URLs de Instagram la skill lanza un **navegador
-> headless interno** (Playwright/Chromium) que resuelve el vídeo por ti. La primera vez
-> descarga ~120 MB de Chromium. Es la parte más frágil (depende de un sitio descargador);
-> si algún día falla, pásale el `.mp4` ya descargado.
+> **Instagram**: works **automatically — no login, no cookies, nothing on your side**. IG
+> blocks anonymous access, so for Instagram URLs the skill launches an **internal headless
+> browser** (Playwright/Chromium) that resolves the video for you. The first run downloads
+> ~120 MB of Chromium. This is the most fragile part (it depends on a downloader site); if
+> it ever breaks, hand it the already downloaded `.mp4`.
 
-## Dependencias (automáticas, multiplataforma)
+## Dependencies (automatic, cross-platform)
 
-La skill **gestiona sus dependencias**:
+The skill **manages its own dependencies**:
 
-| Dependencia | Para qué | Cómo se resuelve |
-|-------------|----------|------------------|
-| `ffmpeg` | extraer fotogramas y contact sheets | usa el del sistema; si falta, instala `imageio-ffmpeg` (binario portable vía pip, sin admin) |
-| `yt-dlp` | descargar URLs (YouTube/TikTok/X…) | se instala vía pip si la fuente es una URL |
-| `playwright` + Chromium | resolver **Instagram** sin login | se instala solo (pip + `playwright install chromium`, ~120 MB) la 1ª vez que pasas una URL de IG |
-| `faster-whisper` | transcribir audio (opcional) | se instala vía pip sólo al pedir `--audio` |
+| Dependency | What for | How it is resolved |
+|------------|----------|--------------------|
+| `ffmpeg` | extract frames and contact sheets | uses the system one; if missing, installs `imageio-ffmpeg` (portable binary via pip, no admin rights) |
+| `yt-dlp` | download URLs (YouTube/TikTok/X…) | installed via pip when the source is a URL |
+| `playwright` + Chromium | resolve **Instagram** without login | installs itself (pip + `playwright install chromium`, ~120 MB) the first time you pass an IG URL |
+| `faster-whisper` | transcribe audio (optional) | installed via pip only when you pass `--audio` |
 
-Lo que no pueda instalar solo (p.ej. `ffmpeg` del sistema en un entorno sin pip), lo
-informa con el comando exacto para tu SO (Windows / Linux / macOS).
+Anything it cannot install on its own (e.g. system `ffmpeg` in an environment without pip)
+is reported with the exact command for your OS (Windows / Linux / macOS).
 
-## Qué genera
+## What it produces
 
-Junto al vídeo, una carpeta `<nombre>_analisis/`:
+Next to the video, a `<name>_analisis/` folder:
 
-- `sheets/contact_NN.jpg` — rejillas de miniaturas en orden cronológico (visión global).
-- `frames/fNNN__<timestamp>.jpg` — fotogramas a resolución completa; el nombre lleva el
-  timestamp y `_CORTE` marca un cambio de escena.
-- `frames_index.csv` — índice de fotogramas (idx, segundos, hms, tipo, fichero).
-- `transcripcion.txt` — transcripción con timestamps (si se pidió `--audio`).
-- `SINTESIS.md` — la síntesis que escribe Claude.
+- `sheets/contact_NN.jpg` — thumbnail grids in chronological order (the global picture).
+- `frames/fNNN__<timestamp>.jpg` — full-resolution frames; the filename carries the
+  timestamp and `_CORTE` marks a scene change.
+- `frames_index.csv` — frame index (idx, seconds, hms, type, file).
+- `transcripcion.txt` — transcript with timestamps (when `--audio` was requested).
+- `SUMMARY.md` — the summary Claude writes.
 
-## Licencia
+> The engine script (`analizar_video.py`) and the file names it produces are still in
+> Spanish; only its console output is affected. Everything the agent writes is in your
+> language.
+
+## License
 
 MIT

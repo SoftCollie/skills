@@ -1,61 +1,61 @@
-# TRD — Documento de Requisitos Técnicos: {{PROYECTO}}
+# TRD — Technical Requirements Document: {{PROJECT}}
 
-> Última actualización: {{FECHA}}
-> Documento generado con la skill `vibecoding-docs`. Se apoya en `01-prd.md`.
+> Last updated: {{DATE}}
+> Document generated with the `vibecoding-docs` skill. Builds on `01-prd.md`.
 
-## Preguntas a realizar (no copiar a la salida)
+## Questions to ask (do not copy into the output)
 <!--
-1. Frontend: ¿web, móvil o ambos? ¿Qué framework? (ver repertorio abajo)
-2. Backend: ¿qué lenguaje/framework?
-3. Base de datos: ¿relacional / documental / otra?
-4. Despliegue / cloud: ¿dónde se hospeda?
-5. Integraciones de terceros: auth, pagos, email, almacenamiento, IA, analítica…
-6. Requisitos no funcionales: rendimiento, seguridad, escalabilidad, cumplimiento.
-Si el usuario duda, propón un stack por defecto coherente con la plataforma del PRD.
+1. Frontend: web, mobile or both? Which framework? (see the repertoire below)
+2. Backend: which language/framework?
+3. Database: relational / document / other?
+4. Deployment / cloud: where is it hosted?
+5. Third-party integrations: auth, payments, email, storage, AI, analytics…
+6. Non-functional requirements: performance, security, scalability, compliance.
+If the user hesitates, propose a default stack consistent with the platform from the PRD.
 -->
 
-## Repertorio de referencia (para ofrecer opciones)
+## Reference repertoire (to offer options)
 - **Web:** React · Vue.js · Angular · Svelte · Next.js · (JavaScript / TypeScript)
-- **Móvil:** React Native · Flutter · Swift (iOS) · Kotlin (Android)
+- **Mobile:** React Native · Flutter · Swift (iOS) · Kotlin (Android)
 - **Backend:** Node.js · .NET · Go · Java · Python (FastAPI/Django) · C#
-- **Bases de datos:** PostgreSQL · MySQL · MongoDB · SQLite · Supabase · MS SQL · InfluxDB/TimescaleDB
-- **Cloud / despliegue:** AWS · Azure · GCP · Vercel · Netlify · Railway · Render
-- **Servicios comunes:** Auth (Clerk/Auth0/Supabase Auth) · Pagos (Stripe) · Email (Resend/SendGrid) ·
-  Storage (S3/Cloudflare R2) · IA (OpenAI/Anthropic)
+- **Databases:** PostgreSQL · MySQL · MongoDB · SQLite · Supabase · MS SQL · InfluxDB/TimescaleDB
+- **Cloud / deployment:** AWS · Azure · GCP · Vercel · Netlify · Railway · Render
+- **Common services:** Auth (Clerk/Auth0/Supabase Auth) · Payments (Stripe) · Email (Resend/SendGrid) ·
+  Storage (S3/Cloudflare R2) · AI (Anthropic/OpenAI)
 
-## 1. Arquitectura general
-Descripción en 3-5 líneas + diagrama opcional. Cliente ↔ API ↔ datos ↔ servicios externos.
+## 1. Overall architecture
+3-5 lines plus an optional diagram. Client ↔ API ↔ data ↔ external services.
 
 ```mermaid
 flowchart LR
-  Cliente --> API
-  API --> BD[(Base de datos)]
-  API --> Externos[Servicios externos]
+  Client --> API
+  API --> DB[(Database)]
+  API --> External[External services]
 ```
 
-## 2. Stack tecnológico
-| Capa | Tecnología | Motivo |
-|------|------------|--------|
+## 2. Technology stack
+| Layer | Technology | Rationale |
+|-------|------------|-----------|
 | Frontend | | |
-| Móvil | | |
+| Mobile | | |
 | Backend | | |
-| Base de datos | | |
+| Database | | |
 | Cloud / hosting | | |
 
-## 3. Integraciones y servicios de terceros
-| Servicio | Uso | Notas |
-|----------|-----|-------|
+## 3. Integrations and third-party services
+| Service | Used for | Notes |
+|---------|----------|-------|
 | | | |
 
-## 4. Autenticación y autorización
-Método de auth (email/contraseña, OAuth, magic link…), roles y permisos.
+## 4. Authentication and authorization
+Auth method (email/password, OAuth, magic link…), roles and permissions.
 
-## 5. Requisitos no funcionales
-- **Rendimiento:**
-- **Seguridad:** (cifrado, gestión de secretos, OWASP básicos)
-- **Escalabilidad:**
-- **Disponibilidad / backups:**
-- **Cumplimiento / privacidad:** (GDPR, etc.)
+## 5. Non-functional requirements
+- **Performance:**
+- **Security:** (encryption, secrets management, OWASP basics)
+- **Scalability:**
+- **Availability / backups:**
+- **Compliance / privacy:** (GDPR, etc.)
 
-## 6. Entornos y despliegue
-Entornos (local / staging / producción), CI/CD y variables de entorno clave.
+## 6. Environments and deployment
+Environments (local / staging / production), CI/CD and key environment variables.

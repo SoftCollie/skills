@@ -1,57 +1,62 @@
 # vibecoding-docs
 
-Skill de Claude Code que genera, de forma interactiva y en español, los **6 documentos de
-planificación** que conviene tener **antes de programar (vibecoding)** una app — y los deja en
-`docs/CLAUDE/` del proyecto, dejando una referencia en el `CLAUDE.md` raíz.
+A Claude Code skill that interactively generates the **6 planning documents** worth having
+**before you start coding (vibecoding)** an app — and drops them into the project's
+`docs/CLAUDE/`, leaving a reference in the root `CLAUDE.md`.
 
-Los 6 documentos:
+The 6 documents:
 
-1. **PRD** — Requisitos de producto
-2. **TRD** — Requisitos técnicos / stack
-3. **Diseño UI/UX** — Sistema de diseño
-4. **AppFlow** — Flujo de pantallas (diagrama Mermaid)
-5. **Esquema del BackEnd** — Modelo de datos (diagrama ER Mermaid)
-6. **Plan de Implementación** — Fases, hitos y plazos
+1. **PRD** — Product requirements
+2. **TRD** — Technical requirements / stack
+3. **UI/UX Design** — Design system
+4. **AppFlow** — Screen flow (Mermaid diagram)
+5. **BackEnd Schema** — Data model (Mermaid ER diagram)
+6. **Implementation Plan** — Phases, milestones and timeline
 
-## Instalación
+## Install
 
 ```text
 /plugin marketplace add SoftCollie/skills
 /plugin install vibecoding-docs@softcollie
 ```
 
-### Alternativa vía npm
+### Alternative via npm
 
-Si prefieres instalarla sin el marketplace, este paquete copia la skill a `~/.claude/skills/`:
+If you would rather install it without the marketplace, this package copies the skill into
+`~/.claude/skills/`:
 
 ```bash
 npx @softcollie/vibecoding-docs-skill
 ```
 
-> El canal recomendado en Claude Code es el marketplace (`/plugin`); npm es una alternativa para
-> quien quiera instalarla con `npx`.
+> The recommended channel in Claude Code is the marketplace (`/plugin`); npm is an
+> alternative for anyone who prefers `npx`.
 
-## Uso
+## Usage
 
-En cualquier proyecto, escribe `/vibecoding-docs` o pídelo en lenguaje natural
-("ayúdame a documentar esta app antes de programar", "genérame el PRD/TRD…").
+In any project, type `/vibecoding-docs` or just ask in plain language ("help me document this
+app before I start coding", "generate the PRD/TRD for me…").
 
-- **Proyecto nuevo:** te hace preguntas cortas, documento a documento.
-- **Proyecto existente:** primero **lee** `CLAUDE.md`, `README`, `docs/**`, manifiestos y la
-  estructura del código para inferir el contexto; te muestra una *Ficha de contexto* y una tabla de
-  decisión (Derivar / Enlazar / Crear) por cada documento, y solo te pide confirmar o corregir.
+- **New project:** it asks short questions, one document at a time.
+- **Existing project:** it first **reads** `CLAUDE.md`, `README`, `docs/**`, the manifests and
+  the code structure to infer the context; it shows you a *context sheet* and a decision table
+  (Derive / Link / Create) per document, and only asks you to confirm or correct.
 
-Salida: `docs/CLAUDE/01-prd.md … 06-plan-implementacion.md` + `README.md` índice, y una sección entre
-marcadores `<!-- BEGIN/END vibecoding-docs -->` en el `CLAUDE.md` raíz (re-ejecutable sin duplicar).
+The documents are written in **your language** — whichever one you are talking in (English by
+default).
+
+Output: `docs/CLAUDE/01-prd.md … 06-implementation-plan.md` + a `README.md` index, and a
+section between `<!-- BEGIN/END vibecoding-docs -->` markers in the root `CLAUDE.md`
+(re-runnable without duplicating).
 
 ## Roadmap
 
-- [ ] Soporte explícito de **monorepos / multi-app** (AppFlow y UI/UX por superficie).
-- [ ] **Spec-Driven Development**: constitución/guardrails, criterios de aceptación EARS, `tasks.md`
-      y matriz de trazabilidad.
-- [ ] Derivar el **design system** desde el código (tokens de Tailwind/Storybook) en vez de preguntar.
-- [ ] Modo **estado** para proyectos vivos (hecho/wip/plan + discrepancias docs↔código).
+- [ ] Explicit **monorepo / multi-app** support (AppFlow and UI/UX per surface).
+- [ ] **Spec-Driven Development**: constitution/guardrails, EARS acceptance criteria,
+      `tasks.md` and a traceability matrix.
+- [ ] Derive the **design system** from the code (Tailwind/Storybook tokens) instead of asking.
+- [ ] **Status mode** for live projects (done/wip/planned + docs↔code discrepancies).
 
-## Licencia
+## License
 
 MIT

@@ -1,147 +1,153 @@
 ---
 name: vibecoding-docs
-description: Genera de forma interactiva los 6 documentos de planificación que conviene tener ANTES de programar (vibecoding) una app — PRD, TRD, Diseño UI/UX, AppFlow, Esquema del BackEnd y Plan de Implementación — haciendo preguntas al usuario y escribiéndolos en `docs/CLAUDE/` del proyecto, y deja una referencia en el CLAUDE.md raíz. Úsala cuando el usuario quiera planificar/documentar un proyecto o app antes de codificar, o pida crear/actualizar el PRD, TRD, design system, flujo de la app, esquema de base de datos o plan de implementación. Funciona en cualquier proyecto.
+description: Interactively generate the 6 planning documents worth having BEFORE you start coding (vibecoding) an app — PRD, TRD, UI/UX Design, AppFlow, BackEnd Schema and Implementation Plan — by asking the user questions and writing them into the project's `docs/CLAUDE/`, leaving a reference in the root CLAUDE.md. Use it when the user wants to plan/document a project or app before coding, or asks to create/update the PRD, TRD, design system, app flow, database schema or implementation plan. Works in any project.
 ---
 
-# Vibecoding Docs — 6 documentos antes de programar
+# Vibecoding Docs — 6 documents before you code
 
-Esta skill conduce una conversación guiada para producir **6 documentos de planificación**
-en español y los deja en `docs/CLAUDE/` del proyecto actual. Cada documento sienta las
-bases del siguiente, de modo que al terminar el agente (Claude Code u otro) tenga todo el
-contexto para implementar la app sin "adivinar".
+This skill runs a guided conversation to produce **6 planning documents** and leaves them in
+the current project's `docs/CLAUDE/`. Each document lays the groundwork for the next, so that
+by the end the agent (Claude Code or another) has all the context it needs to implement the
+app without guessing.
 
-Los 6 documentos:
+The 6 documents:
 
-1. **PRD** — Documento de Requisitos de Producto (`01-prd.md`)
-2. **TRD** — Documento de Requisitos Técnicos / stack (`02-trd.md`)
-3. **Diseño UI/UX** — Sistema de diseño (`03-ui-ux.md`)
-4. **AppFlow** — Flujo de pantallas y recorrido del usuario (`04-appflow.md`)
-5. **Esquema del BackEnd** — Modelo de datos (`05-backend-schema.md`)
-6. **Plan de Implementación** — Fases, hitos y plazos (`06-plan-implementacion.md`)
+1. **PRD** — Product Requirements Document (`01-prd.md`)
+2. **TRD** — Technical Requirements Document / stack (`02-trd.md`)
+3. **UI/UX Design** — Design system (`03-ui-ux.md`)
+4. **AppFlow** — Screen flow and user journey (`04-appflow.md`)
+5. **BackEnd Schema** — Data model (`05-backend-schema.md`)
+6. **Implementation Plan** — Phases, milestones and timeline (`06-implementation-plan.md`)
 
-## Reglas fijas
+## Fixed rules
 
-- **Idioma:** redacta TODO el contenido en **español**. Excepción razonable: nombres de
-  campos/tablas, identificadores de código y nombres propios de tecnologías (React, PostgreSQL,
-  AWS…) van en su forma original.
-- **Ruta de salida:** SIEMPRE `docs/CLAUDE/` en la raíz del proyecto. Crea la carpeta si no existe.
-- **Modo progresivo:** trabaja **un documento a la vez**. Pregunta lo justo, genera ese documento,
-  enséñalo y confirma antes de pasar al siguiente. No abrumes con cuestionarios largos: agrupa las
-  preguntas en tandas pequeñas (idealmente con la herramienta de preguntas para opciones cerradas y
-  preguntas abiertas para descripciones).
-- **No inventes silenciosamente:** si el usuario no sabe o no responde algo, propón un valor por
-  defecto sensato y márcalo con `> TODO:` para que lo revise.
-- **Reanudable:** si `docs/CLAUDE/` ya tiene documentos, ofrece continuar/actualizar en lugar de
-  empezar de cero.
+- **Language:** write the documents in **the language the user is speaking**; default to
+  English when it is unclear. Reasonable exception: field/table names, code identifiers and
+  proper technology names (React, PostgreSQL, AWS…) stay in their original form. Keep the
+  file names as listed above regardless of language.
+- **Output path:** ALWAYS `docs/CLAUDE/` at the project root. Create the folder if missing.
+- **Progressive mode:** work **one document at a time**. Ask just enough, generate that
+  document, show it and confirm before moving to the next. Do not overwhelm with long
+  questionnaires: group questions into small batches (ideally using the question tool for
+  closed options, and open questions for descriptions).
+- **Never invent silently:** if the user does not know or does not answer something, propose
+  a sensible default and mark it with `> TODO:` so they can review it.
+- **Resumable:** if `docs/CLAUDE/` already holds documents, offer to continue/update instead
+  of starting from scratch.
 
-## Flujo de trabajo
+## Workflow
 
-### Paso 0 — Preparar y contextualizar (una sola vez)
+### Step 0 — Set up and gather context (once)
 
-1. Localiza la raíz del proyecto (donde está `.git`, `package.json`, etc.; si no hay, usa el
-   directorio de trabajo actual). Crea `docs/CLAUDE/` si falta.
-2. Comprueba si ya existen documentos en `docs/CLAUDE/`. Si los hay, pregunta si quiere
-   **continuar**, **actualizar uno concreto** o **regenerar**.
-3. **Determina si es proyecto NUEVO o EXISTENTE.** Es "existente" si hay código, `.git` con
-   historial, `CLAUDE.md`, `README`, `docs/`, etc. En ese caso ejecuta el **reconocimiento** del
-   Paso 0-bis ANTES de preguntar nada. La regla de oro: en proyectos existentes **no se pregunta lo
-   que se puede leer** — se infiere, se presenta y solo se pide confirmar o corregir.
-4. Pregunta el **contexto base** (solo lo que no hayas podido inferir). En proyectos nuevos, una
-   tanda corta: nombre del proyecto/app · qué hace y para quién (una frase) · plataforma objetivo
-   (Web · Móvil iOS/Android · Ambas · Escritorio) · ¿idea nueva o en marcha?
+1. Locate the project root (where `.git`, `package.json`, etc. live; if there is none, use the
+   current working directory). Create `docs/CLAUDE/` if missing.
+2. Check whether documents already exist in `docs/CLAUDE/`. If they do, ask whether the user
+   wants to **continue**, **update a specific one** or **regenerate**.
+3. **Determine whether this is a NEW or an EXISTING project.** It is "existing" if there is
+   code, a `.git` with history, a `CLAUDE.md`, a `README`, a `docs/` folder, etc. In that case
+   run the **reconnaissance** of Step 0-bis BEFORE asking anything. The golden rule: in
+   existing projects **you do not ask what you can read** — infer it, present it, and only ask
+   for confirmation or corrections.
+4. Ask for the **base context** (only what you could not infer). In new projects, one short
+   batch: project/app name · what it does and for whom (one sentence) · target platform
+   (Web · Mobile iOS/Android · Both · Desktop) · new idea or already in progress?
 
-### Paso 0-bis — Reconocimiento de proyecto existente
+### Step 0-bis — Reconnaissance of an existing project
 
-Objetivo: reconstruir el contexto a partir de lo que YA hay, para que las preguntas se conviertan en
-"confirmar/corregir" en vez de "responder desde cero".
+Goal: rebuild the context from what is ALREADY there, so the questions become
+"confirm/correct" instead of "answer from scratch".
 
-1. **Lee las fuentes de contexto** que existan (de mayor a menor señal):
-   - `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `.github/copilot-instructions.md` — instrucciones y
-     descripción del proyecto.
-   - `README*`, `MVP.md`, `ROADMAP*`, `CHANGELOG*`, `docs/**` (incluye `.es.md`), wikis.
-   - Manifiestos: `package.json`, `composer.json`, `pyproject.toml`, `requirements.txt`, `go.mod`,
-     `pom.xml`, `Gemfile`, `*.csproj` → stack, scripts, dependencias.
+1. **Read the context sources** that exist (strongest signal first):
+   - `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `.github/copilot-instructions.md` — project
+     instructions and description.
+   - `README*`, `MVP.md`, `ROADMAP*`, `CHANGELOG*`, `docs/**` (including localized `.xx.md`),
+     wikis.
+   - Manifests: `package.json`, `composer.json`, `pyproject.toml`, `requirements.txt`,
+     `go.mod`, `pom.xml`, `Gemfile`, `*.csproj` → stack, scripts, dependencies.
    - Infra: `Dockerfile`, `docker-compose*.yml`, `*-ci.yml`, `.env.template`/`.env.example`,
-     `angular.json`/`vite.config`/`next.config`, `capacitor.config`, `ionic.config` → despliegue y plataforma.
-   - Estructura de carpetas (árbol de 2-3 niveles, `apps/`, `src/`, `packages/`) y, si hay BD,
-     migraciones/esquemas (`migrations/`, `schema.prisma`, `*.sql`, entidades/modelos).
-2. **Sintetiza una "Ficha de contexto"** y muéstrala al usuario para validar (no la copies a los
-   documentos finales): nombre, propósito, usuarios, plataforma, stack detectado, integraciones,
-   modelo de datos entrevisto, estado/madurez y fase actual.
-3. **Mapea lo existente contra los 6 documentos.** Para cada uno decide y propón:
-   - **Derivar** — ya hay material suficiente (p. ej. un `docs/ARCHITECTURE.md` alimenta el TRD); se
-     genera resumiendo/estructurando lo que existe.
-   - **Enlazar / no duplicar** — ya existe un documento equivalente y bueno; en `docs/CLAUDE/` se crea
-     una ficha breve que **referencia** al original en vez de copiarlo.
-   - **Crear** — no hay nada; se genera con las preguntas habituales (que serán pocas).
-   Presenta esta tabla de decisión y deja que el usuario la ajuste antes de generar.
-4. **Concilia con `docs/` y `CLAUDE.md` existentes:** respeta su estilo e idioma, no contradigas lo ya
-   documentado y, si detectas discrepancias entre el código y los docs, **señálalas** en vez de
-   sobrescribir. Nunca borres documentación previa.
+     `angular.json`/`vite.config`/`next.config`, `capacitor.config`, `ionic.config` →
+     deployment and platform.
+   - Folder structure (2-3 level tree, `apps/`, `src/`, `packages/`) and, if there is a
+     database, migrations/schemas (`migrations/`, `schema.prisma`, `*.sql`, entities/models).
+2. **Synthesize a "context sheet"** and show it to the user for validation (do not copy it
+   into the final documents): name, purpose, users, platform, detected stack, integrations,
+   glimpsed data model, maturity and current phase.
+3. **Map what exists against the 6 documents.** For each one decide and propose:
+   - **Derive** — there is already enough material (e.g. a `docs/ARCHITECTURE.md` feeds the
+     TRD); generate it by summarizing/structuring what exists.
+   - **Link / do not duplicate** — an equivalent, good document already exists; in
+     `docs/CLAUDE/` create a short stub that **references** the original instead of copying it.
+   - **Create** — there is nothing; generate it with the usual questions (there will be few).
+   Present this decision table and let the user adjust it before generating.
+4. **Reconcile with the existing `docs/` and `CLAUDE.md`:** respect their style and language,
+   do not contradict what is already documented and, if you spot discrepancies between the
+   code and the docs, **flag them** instead of overwriting. Never delete previous documentation.
 
-### Pasos 1–6 — Generar cada documento
+### Steps 1–6 — Generate each document
 
-Para CADA documento, en orden:
+For EACH document, in order:
 
-1. **Lee la plantilla** correspondiente en `templates/` (ver tabla abajo) para conocer su estructura.
-2. **Haz las preguntas** propias de ese documento (las que indica la plantilla), en tandas cortas.
-   Reutiliza lo ya respondido en pasos previos; no repreguntes.
-3. **Redacta el documento** en `docs/CLAUDE/NN-<slug>.md` rellenando la plantilla con las respuestas.
-   Usa diagramas **Mermaid** donde la plantilla lo indique (flujos y esquema ER), que es el
-   equivalente en texto a las diapositivas del concepto original.
-4. **Resume** lo generado (2–3 líneas) y pregunta si quiere ajustar algo o **continuar** con el siguiente.
-5. Cada documento empieza con un encabezado que incluye el proyecto y una línea
-   `> Última actualización: <fecha de hoy>`.
+1. **Read the matching template** in `templates/` (see the table below) to learn its structure.
+2. **Ask that document's questions** (the ones the template lists), in short batches. Reuse
+   what was already answered in previous steps; do not ask twice.
+3. **Write the document** to `docs/CLAUDE/NN-<slug>.md`, filling the template with the answers.
+   Use **Mermaid** diagrams where the template says so (flows and ER schema) — the text
+   equivalent of the slides in the original concept.
+4. **Summarize** what you generated (2–3 lines) and ask whether they want to adjust anything
+   or **continue** with the next one.
+5. Each document starts with a header that includes the project and a
+   `> Last updated: <today's date>` line.
 
-| # | Documento | Fichero salida | Plantilla |
-|---|-----------|----------------|-----------|
+| # | Document | Output file | Template |
+|---|----------|-------------|----------|
 | 1 | PRD | `docs/CLAUDE/01-prd.md` | `templates/01-prd.md` |
 | 2 | TRD | `docs/CLAUDE/02-trd.md` | `templates/02-trd.md` |
-| 3 | Diseño UI/UX | `docs/CLAUDE/03-ui-ux.md` | `templates/03-ui-ux.md` |
+| 3 | UI/UX Design | `docs/CLAUDE/03-ui-ux.md` | `templates/03-ui-ux.md` |
 | 4 | AppFlow | `docs/CLAUDE/04-appflow.md` | `templates/04-appflow.md` |
-| 5 | Esquema del BackEnd | `docs/CLAUDE/05-backend-schema.md` | `templates/05-backend-schema.md` |
-| 6 | Plan de Implementación | `docs/CLAUDE/06-plan-implementacion.md` | `templates/06-plan-implementacion.md` |
+| 5 | BackEnd Schema | `docs/CLAUDE/05-backend-schema.md` | `templates/05-backend-schema.md` |
+| 6 | Implementation Plan | `docs/CLAUDE/06-implementation-plan.md` | `templates/06-implementation-plan.md` |
 
-> El usuario puede pedir generar solo algunos documentos; respétalo. El orden recomendado es 1→6
-> porque cada uno aporta contexto al siguiente (p. ej. las entidades del PRD alimentan el esquema
-> del BackEnd).
+> The user may ask for only some of the documents; respect that. The recommended order is 1→6
+> because each one feeds context to the next (e.g. the PRD entities feed the BackEnd schema).
 
-### Paso 7 — Índice y referencia en CLAUDE.md
+### Step 7 — Index and reference in CLAUDE.md
 
-1. Crea/actualiza `docs/CLAUDE/README.md` como índice con enlaces a los 6 documentos y una línea
-   de estado (generado / pendiente) por cada uno.
-2. Crea o actualiza el **`CLAUDE.md` de la raíz** del proyecto añadiendo (o refrescando) una sección
-   delimitada por marcadores para no duplicar en futuras ejecuciones:
+1. Create/update `docs/CLAUDE/README.md` as an index linking to the 6 documents, with a status
+   line (generated / pending) for each.
+2. Create or update the project's **root `CLAUDE.md`**, adding (or refreshing) a section
+   delimited by markers so future runs do not duplicate it:
 
 ```markdown
 <!-- BEGIN vibecoding-docs -->
-## 📐 Documentación de planificación (docs/CLAUDE/)
+## 📐 Planning documentation (docs/CLAUDE/)
 
-Antes de implementar cualquier funcionalidad, consulta y respeta estos documentos:
+Before implementing any feature, read and respect these documents:
 
-- [`docs/CLAUDE/01-prd.md`](docs/CLAUDE/01-prd.md) — Requisitos de producto (qué se construye y por qué)
-- [`docs/CLAUDE/02-trd.md`](docs/CLAUDE/02-trd.md) — Requisitos técnicos y stack
-- [`docs/CLAUDE/03-ui-ux.md`](docs/CLAUDE/03-ui-ux.md) — Sistema de diseño UI/UX
-- [`docs/CLAUDE/04-appflow.md`](docs/CLAUDE/04-appflow.md) — Flujo de pantallas / recorrido del usuario
-- [`docs/CLAUDE/05-backend-schema.md`](docs/CLAUDE/05-backend-schema.md) — Esquema del backend / modelo de datos
-- [`docs/CLAUDE/06-plan-implementacion.md`](docs/CLAUDE/06-plan-implementacion.md) — Plan de implementación
+- [`docs/CLAUDE/01-prd.md`](docs/CLAUDE/01-prd.md) — Product requirements (what is being built and why)
+- [`docs/CLAUDE/02-trd.md`](docs/CLAUDE/02-trd.md) — Technical requirements and stack
+- [`docs/CLAUDE/03-ui-ux.md`](docs/CLAUDE/03-ui-ux.md) — UI/UX design system
+- [`docs/CLAUDE/04-appflow.md`](docs/CLAUDE/04-appflow.md) — Screen flow / user journey
+- [`docs/CLAUDE/05-backend-schema.md`](docs/CLAUDE/05-backend-schema.md) — Backend schema / data model
+- [`docs/CLAUDE/06-implementation-plan.md`](docs/CLAUDE/06-implementation-plan.md) — Implementation plan
 
-Estos documentos son la fuente de verdad del proyecto. Si una petición los contradice, avísalo.
+These documents are the project's source of truth. If a request contradicts them, say so.
 <!-- END vibecoding-docs -->
 ```
 
-   - Si `CLAUDE.md` no existe, créalo con un encabezado mínimo (`# <Proyecto>`) y esta sección.
-   - Si ya existe la sección entre marcadores, reemplaza solo ese bloque.
-   - No toques el resto del `CLAUDE.md`.
+   - Write that section in the same language as the documents.
+   - If `CLAUDE.md` does not exist, create it with a minimal header (`# <Project>`) and this
+     section.
+   - If the marker section already exists, replace only that block.
+   - Do not touch the rest of `CLAUDE.md`.
 
-3. Cierra resumiendo qué documentos quedaron creados y cuáles pendientes/TODO.
+3. Close by summarizing which documents were created and which are pending/TODO.
 
-## Buenas prácticas al preguntar
+## Good practice when asking
 
-- Una tanda = 2–4 preguntas como máximo. Avanza, no interrogues.
-- Para elecciones cerradas (plataforma, framework, base de datos, estilo visual) ofrece opciones
-  concretas — usa como repertorio el stack de referencia de `templates/02-trd.md`.
-- Para descripciones (problema, usuarios, funcionalidades) deja respuesta abierta.
-- Si el usuario dice "tú decide" / "lo que recomiendes", elige por él, justifícalo en una línea y
-  sigue; márcalo con `> TODO:` si conviene que lo valide.
-- Mantén el foco: el objetivo es dejar documentos accionables, no exhaustivos.
+- One batch = 2–4 questions max. Keep moving, do not interrogate.
+- For closed choices (platform, framework, database, visual style) offer concrete options —
+  use the reference stack in `templates/02-trd.md` as your repertoire.
+- For descriptions (problem, users, features) leave the answer open.
+- If the user says "you decide" / "whatever you recommend", choose for them, justify it in one
+  line and move on; mark it with `> TODO:` if it is worth validating.
+- Stay focused: the goal is actionable documents, not exhaustive ones.
